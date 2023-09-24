@@ -19,6 +19,8 @@ const bookSchema = new mongoose.Schema(
 		text_reviews_count: Number,
 		publication_date: Date,
 		publisher: String,
+		image: { type: Buffer, required: true },
+		price: { type: Number, required: true },
 	},
 	{ collection: 'booksdata' }
 );

@@ -3,7 +3,7 @@ import booksController from "../controllers/booksController"
 const router = express.Router();
 import authMiddleware from "../middleware/authMiddleware";
 
-router.use('/', authMiddleware, booksController);
+router.use('/', booksController);
 
 
 export default router;
