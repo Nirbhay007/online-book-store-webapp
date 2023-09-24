@@ -3,9 +3,7 @@ import { Book } from "../models/Book";
 import multer from "multer";
 const storage = multer.memoryStorage(); // Store the image in memory
 
-
 const router = express.Router();
-
 
 // Define a function to check if the file is an image based on its MIME type
 const imageFileFilter = (req, file, cb) => {
