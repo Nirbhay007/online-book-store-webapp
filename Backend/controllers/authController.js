@@ -6,13 +6,30 @@ import { secret } from '../config';
 
 export const register = async (req, res) => {
 	try {
-		const { username, email, password } = req.body;
+
+		const { username, password, email } = req.body; // Extract username, password, and email from req.body
+
+		if (!username || !password || !email) {
+			return res.status(400).json({ error: 'Username, password, and email are required' });
+		}
+
+		if (password.length < 6) {
+			return res.status(400).json({ error: 'Password should be at least 6 characters long' });
+		}
+
+		const emailCheck = await User.findOne({ email }); // Use await here to wait for the query to complete
+
+		if (emailCheck) {
+			return res.status(400).json({ error: 'Email already exists, please login' });
+		}
+
 		const hashedPassword = await bcrypt.hash(password, 10);
 		const user = new User({
 			username,
 			email,
 			password: hashedPassword,
 		});
+
 		await user.save();
 		res.status(201).json({ message: 'User registered successfully' });
 	} catch (error) {
@@ -20,7 +37,6 @@ export const register = async (req, res) => {
 		res.status(500).json({ error: 'Registration failed' });
 	}
 };
-
 export const login = async (req, res) => {
 	const { email, password } = req.body;
 	try {
