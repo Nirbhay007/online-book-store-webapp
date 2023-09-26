@@ -1,7 +1,11 @@
 // src/components/SignupForm.js
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
+import { userBaseUrl } from '../api/apiCall';
 
 const SignupForm = () => {
+
+	const REGISTER_URL = "/register";
 	const [formData, setFormData] = useState({
 		username: '',
 		email: '',
@@ -19,19 +23,17 @@ const SignupForm = () => {
 		e.preventDefault();
 
 		try {
-			const response = await fetch('http://localhost:5000/api/users/register', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(formData),
-			});
+			const response = await userBaseUrl.post(REGISTER_URL,
+				JSON.stringify(formData),
+				{
+					headers: { 'Content-Type': 'application/json' },
+					withCredentials: true
+				}
+			);
 
-			if (response.ok) {
-				console.log("singned up successfully")
-			} else {
-				console.log("error");
-			}
+
+			console.log(response, "singned up successfully")
+
 		} catch (error) {
 			console.log(error);
 		}
@@ -86,17 +88,17 @@ const SignupForm = () => {
 				<div className="mb-4 flex justify-between">
 					<button
 						type="submit"
-						className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+						className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
 					>
 						Sign Up
 					</button>
-					<button
-
-						type="submit"
-						className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
-					>
-						Login
-					</button>
+					<Link to="/">
+						<button
+							className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+						>
+							Login
+						</button>
+					</Link>
 
 				</div>
 			</form>

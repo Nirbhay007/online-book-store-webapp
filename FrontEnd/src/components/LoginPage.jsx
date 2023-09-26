@@ -1,6 +1,6 @@
 // src/components/LoginPage.js
 import React, { useState } from 'react';
-
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
 	const [formData, setFormData] = useState({
@@ -76,18 +76,17 @@ const LoginPage = () => {
 				<div className="mb-4 flex justify-between">
 					<button
 						type="submit"
-						className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+						className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
 					>
 						Login
 					</button>
-					<button
-
-						type="submit"
-						className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
-					>
-
-						Sign Up
-					</button>
+					<Link to="/register">
+						<button
+							className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200"
+						>
+							Sign Up
+						</button>
+					</Link>
 
 				</div>
 			</div >
